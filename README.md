@@ -1,7 +1,8 @@
 # WRview
 2018-09-05 首次提交
 
-''
+##一、导入引用
+```
 	allprojects {
 		repositories {
 			...
@@ -12,10 +13,10 @@
 	dependencies {
 	        implementation 'com.github.tongzhenggang:WRview:1.0'
 	}
-''
+```
 
-
-''
+##二、XML布局
+```
     <com.tzg.wheelrecyclerView.WRView
         android:id="@+id/wheel_main"
         android:layout_width="match_parent"
@@ -31,9 +32,10 @@
         app:unselectTextColor="#9a9a9a"
         app:unselectTextSize="14sp"
         app:dividerWidth="80dp"/>
-''
+```
 
-''
+##三、代码设置
+```
         wheelMain = (WRView) this.findViewById(R.id.wheel_main);
 
         List<String> mData = new ArrayList<>();
@@ -49,4 +51,4 @@
                 Log.d("setOnSelectListener", "onSelect>>>position=" + position + " data=" + data);
             }
         });
-''
+```
