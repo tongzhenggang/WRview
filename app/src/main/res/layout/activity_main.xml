@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#f5f5f5">
+
+    <com.tzg.wheelrecyclerView.WRView
+        android:id="@+id/wheel_main"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#ffffff"
+        android:layout_margin="10dp"
+        android:overScrollMode="never"
+        android:scrollbars="none"
+        app:selectTextColor="#707070"
+        app:selectTextSize="16sp"
+        app:itemHeight="95dp"
+        app:dividerColor="#dddddd"
+        app:unselectTextColor="#9a9a9a"
+        app:unselectTextSize="14sp"
+        app:dividerWidth="80dp"/>
+</LinearLayout>
