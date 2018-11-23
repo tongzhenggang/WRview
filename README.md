@@ -11,7 +11,7 @@
 	}
 
 	dependencies {
-	        implementation 'com.github.tongzhenggang:WRview:1.0'
+	        implementation 'com.github.tongzhenggang:WRview:1.1'
 	}
 ```
 
