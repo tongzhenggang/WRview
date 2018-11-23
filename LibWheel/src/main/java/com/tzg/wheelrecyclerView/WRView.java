@@ -11,6 +11,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,11 +22,12 @@ import com.tzg.wheelrecyclerView.R;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 /**
  * Description: 自定义滚轮控件
  * Create by JustTong  2018/9/5
-*/
+ */
 public class WRView extends RecyclerView {
 
     //默认参数
@@ -146,7 +148,7 @@ public class WRView extends RecyclerView {
         mDatas.addAll(datas);
         mAdapter.notifyDataSetChanged();
         setPosition(0);
-        scrollTo(0,0);
+        scrollTo(0, 0);
     }
 
     public void setOnSelectListener(OnSelectListener listener) {
@@ -197,16 +199,21 @@ public class WRView extends RecyclerView {
         }
     }
 
+
+    private int mSelectedTemp;
+
     private class OnWheelScrollListener extends OnScrollListener {
         @Override
         public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
             super.onScrollStateChanged(recyclerView, newState);
+            Log.e("OnWheelScrollListener","newState="+newState);
             if (newState == RecyclerView.SCROLL_STATE_IDLE) {
                 //当控件停止滚动时，获取可视范围第一个item的位置，滚动调整控件以使选中的item刚好处于正中间
                 int firstVisiblePos = mLayoutManager.findFirstVisibleItemPosition();
                 if (firstVisiblePos == RecyclerView.NO_POSITION) {
                     return;
                 }
+
                 Rect rect = new Rect();
                 mLayoutManager.findViewByPosition(firstVisiblePos).getHitRect(rect);
                 if (Math.abs(rect.top) > mItemHeight / 2) {
@@ -217,9 +224,11 @@ public class WRView extends RecyclerView {
                     smoothScrollBy(0, rect.top);
                     mSelected = firstVisiblePos;
                 }
-                if (mOnSelectListener != null) {
+                if (mOnSelectListener != null&& mSelected!=mSelectedTemp) {
+                    mSelectedTemp = mSelected;
                     mOnSelectListener.onSelect(mSelected, mDatas.get(mSelected));
                 }
+
 
             }
         }
@@ -231,7 +240,7 @@ public class WRView extends RecyclerView {
         }
     }
 
-    private void setSelectedItem(){
+    private void setSelectedItem() {
         //获取可视范围的第一个控件的位置
         int firstVisiblePos = mLayoutManager.findFirstVisibleItemPosition();
         if (firstVisiblePos == RecyclerView.NO_POSITION) {
@@ -256,12 +265,12 @@ public class WRView extends RecyclerView {
                 item.setTextColor(mSelectTextColor);
                 item.setTextSize(TypedValue.COMPLEX_UNIT_PX, mSelectTextSize);
                 item.setBackgroundColor(Color.parseColor("#70dddddd"));
-                item.setPadding(20,0,20,0);
+                item.setPadding(20, 0, 20, 0);
             } else {
                 item.setTextColor(mUnselectTextColor);
                 item.setTextSize(TypedValue.COMPLEX_UNIT_PX, mUnselectTextSize);
                 item.setBackgroundColor(Color.parseColor("#ffffff"));
-                item.setPadding(30,0,30,0);
+                item.setPadding(30, 0, 30, 0);
             }
         }
     }
